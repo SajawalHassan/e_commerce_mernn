@@ -1,9 +1,16 @@
-import { View, SafeAreaView, Platform, Image, Text } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  Platform,
+  Image,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import Heading from "../components/Heading";
 import Saly19 from "../assets/Saly-19.png";
 
-export default function SplashScreen() {
+export default function SplashScreen({ navigation }) {
   return (
     <SafeAreaView
       className={
@@ -19,11 +26,14 @@ export default function SplashScreen() {
         <Image source={Saly19} />
       </View>
       <View className="mt-14 items-center">
-        <View className="py-5 w-[80%] bg-white rounded-md ">
+        <TouchableOpacity
+          className="py-5 w-[80%] bg-white rounded-md"
+          onPress={() => navigation.navigate("RegisterScreen")}
+        >
           <Text className="font-bold text-[#5956E9] text-center">
             Get Started
           </Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

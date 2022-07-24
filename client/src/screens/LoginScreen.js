@@ -9,7 +9,7 @@ import SmallText from "../components/SmallText";
 import { AtSymbolIcon, LockClosedIcon } from "react-native-heroicons/outline";
 import { View, Text, SafeAreaView, Platform, Image } from "react-native";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

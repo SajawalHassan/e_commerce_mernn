@@ -13,6 +13,7 @@ router.post("/register", async (req, res) => {
 
     // Validating info
     const { error } = userValidation(req.body);
+    // res.json(error.details[0].message);
     if (error) return res.status(400).json(error.details[0].message);
 
     // Hashing passwords
@@ -20,7 +21,7 @@ router.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
     // Getting info to save new user
-    const newUser = User({
+    const newUser = new User({
       username: req.body.username,
       email: req.body.email,
       password: hashedPassword,

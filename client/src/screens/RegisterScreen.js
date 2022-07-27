@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Heading from "../components/Heading";
 import Ellipse19 from "../assets/Ellipse-19.png";
 import Ellipse21 from "../assets/Ellipse-21.png";
@@ -13,14 +13,35 @@ import {
 import { View, Text, SafeAreaView, Platform, Image } from "react-native";
 import SmallText from "../components/SmallText";
 import { StatusBar } from "expo-status-bar";
+import { registerFail, setIsLoading } from "../features/registerSlice";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "../api/axios";
 
 export default function RegisterScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleOnPress = () => {
-    navigation.navigate("LoginScreen");
+  const { error, isLoading } = useSelector((state) => state.register);
+  useEffect(() => {
+    dispatch(registerFail(""));
+  }, []);
+
+  const dispatch = useDispatch();
+
+  const handleOnPress = async () => {
+    dispatch(setIsLoading(true));
+    try {
+      await axios.post("/auth/register", {
+        username,
+        email,
+        password,
+      });
+
+      navigation.navigate("LoginScreen");
+    } catch (error) {
+      dispatch(registerFail(error.response.data));
+    }
   };
 
   return (
@@ -38,7 +59,9 @@ export default function RegisterScreen({ navigation }) {
         <Heading text="Create an account" />
       </View>
       <View className="mt-16 bg-white w-full rounded-t-[20px] h-full p-5">
-        <Text className="font-bold text-lg">Register</Text>
+        <View className="flex-row items-center justify-between">
+          <Text className="font-bold text-lg">Register</Text>
+        </View>
         <View className="items-center justify-center h-[43%] w-full">
           <View className="w-[80%]">
             <InputField
@@ -65,12 +88,14 @@ export default function RegisterScreen({ navigation }) {
             />
           </View>
         </View>
-        <View className="items-center mt-5">
+        <View className="items-center">
+          <Text className="text-red-500 font-bold mb-2">{error}</Text>
+
           <ButtonLarge text="Register" onPress={() => handleOnPress()} />
           <View className="mt-2">
             <SmallText
               text="Already have an account?"
-              onPress={() => handleOnPress()}
+              onPress={() => navigation.navigate("LoginScreen")}
             />
           </View>
         </View>

@@ -8,6 +8,7 @@ import SmallText from "../components/SmallText";
 
 import { AtSymbolIcon, LockClosedIcon } from "react-native-heroicons/outline";
 import { View, Text, SafeAreaView, Platform, Image } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -62,6 +63,7 @@ export default function LoginScreen({ navigation }) {
           </View>
         </View>
       </View>
+      <StatusBar style="auto" />
     </SafeAreaView>
   );
 }

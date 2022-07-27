@@ -12,6 +12,7 @@ import {
 } from "react-native-heroicons/outline";
 import { View, Text, SafeAreaView, Platform, Image } from "react-native";
 import SmallText from "../components/SmallText";
+import { StatusBar } from "expo-status-bar";
 
 export default function RegisterScreen({ navigation }) {
   const [username, setUsername] = useState("");
@@ -74,6 +75,7 @@ export default function RegisterScreen({ navigation }) {
           </View>
         </View>
       </View>
+      <StatusBar style="auto" />
     </SafeAreaView>
   );
 }

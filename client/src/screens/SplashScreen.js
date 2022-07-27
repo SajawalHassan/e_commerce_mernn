@@ -9,6 +9,7 @@ import {
 import React from "react";
 import Heading from "../components/Heading";
 import Saly19 from "../assets/Saly-19.png";
+import { StatusBar } from "expo-status-bar";
 
 export default function SplashScreen({ navigation }) {
   return (
@@ -35,6 +36,7 @@ export default function SplashScreen({ navigation }) {
           </Text>
         </TouchableOpacity>
       </View>
+      <StatusBar style="auto" />
     </SafeAreaView>
   );
 }

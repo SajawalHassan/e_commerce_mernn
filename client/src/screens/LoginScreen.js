@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import Heading from "../components/Heading";
 import Ellipse19 from "../assets/Ellipse-19.png";
 import Ellipse21 from "../assets/Ellipse-21.png";
@@ -19,7 +19,7 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.login);
+  const { error, accessToken } = useSelector((state) => state.login);
 
   useEffect(() => {
     dispatch(loginFail(""));
@@ -79,7 +79,7 @@ export default function LoginScreen({ navigation }) {
           <View className="mt-2">
             <SmallText
               text="Don't have an account?"
-              onPress={() => handleOnPress()}
+              onPress={() => navigation.navigate("RegisterScreen")}
             />
           </View>
         </View>

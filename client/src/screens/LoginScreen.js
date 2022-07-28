@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Heading from "../components/Heading";
 import Ellipse19 from "../assets/Ellipse-19.png";
 import Ellipse21 from "../assets/Ellipse-21.png";
@@ -9,13 +9,32 @@ import SmallText from "../components/SmallText";
 import { AtSymbolIcon, LockClosedIcon } from "react-native-heroicons/outline";
 import { View, Text, SafeAreaView, Platform, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "../api/axios";
+import { loginFail, loginSuccess } from "../features/loginSlice";
+import { setIsLoading } from "../features/registerSlice";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleOnPress = () => {
-    navigation.navigate("RegisterScreen");
+  const dispatch = useDispatch();
+  const { error } = useSelector((state) => state.login);
+
+  useEffect(() => {
+    dispatch(loginFail(""));
+  }, []);
+
+  const handleOnPress = async () => {
+    dispatch(setIsLoading(true));
+    try {
+      const { data } = await axios.post("/auth/login", { email, password });
+
+      dispatch(loginSuccess(data.accessToken));
+      console.log(data.accessToken);
+    } catch (error) {
+      dispatch(loginFail(error.response.data));
+    }
   };
 
   return (
@@ -54,6 +73,8 @@ export default function LoginScreen({ navigation }) {
           </View>
         </View>
         <View className="items-center mt-5">
+          <Text className="text-red-500 font-bold mb-2">{error}</Text>
+
           <ButtonLarge text="Login" onPress={() => handleOnPress()} />
           <View className="mt-2">
             <SmallText

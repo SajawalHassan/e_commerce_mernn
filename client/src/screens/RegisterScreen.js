@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import Heading from "../components/Heading";
 import Ellipse19 from "../assets/Ellipse-19.png";
 import Ellipse21 from "../assets/Ellipse-21.png";
@@ -22,9 +22,11 @@ export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { error, isLoading } = useSelector((state) => state.register);
+  const { error } = useSelector((state) => state.register);
+  const { accessToken } = useSelector((state) => state.login);
+
   useEffect(() => {
-    dispatch(registerFail(""));
+    accessToken ? navigation.navigate("HomeScreen") : null;
   }, []);
 
   const dispatch = useDispatch();

@@ -22,6 +22,7 @@ export default function LoginScreen({ navigation }) {
   const { error, accessToken } = useSelector((state) => state.login);
 
   useEffect(() => {
+    accessToken ? navigation.navigate("HomeScreen") : null;
     dispatch(loginFail(""));
   }, []);
 
@@ -31,10 +32,11 @@ export default function LoginScreen({ navigation }) {
       const { data } = await axios.post("/auth/login", { email, password });
 
       dispatch(loginSuccess(data.accessToken));
-      console.log(data.accessToken);
     } catch (error) {
       dispatch(loginFail(error.response.data));
     }
+
+    navigation.navigate("HomeScreen");
   };
 
   return (

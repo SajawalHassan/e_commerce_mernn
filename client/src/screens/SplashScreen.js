@@ -6,12 +6,19 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import Heading from "../components/Heading";
 import Saly19 from "../assets/Saly-19.png";
 import { StatusBar } from "expo-status-bar";
+import { useSelector } from "react-redux";
 
 export default function SplashScreen({ navigation }) {
+  const { error, accessToken } = useSelector((state) => state.login);
+
+  useEffect(() => {
+    accessToken ? navigation.navigate("HomeScreen") : null;
+  }, []);
+
   return (
     <SafeAreaView
       className={

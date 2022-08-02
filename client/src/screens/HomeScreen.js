@@ -1,6 +1,20 @@
-import { View, SafeAreaView, Platform, Text, ScrollView } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  Platform,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { useSelector } from "react-redux";
-import { MenuAlt1Icon } from "react-native-heroicons/outline";
+import {
+  ArrowRightIcon,
+  HeartIcon,
+  HomeIcon,
+  MenuAlt1Icon,
+  ShoppingCartIcon,
+  UserIcon,
+} from "react-native-heroicons/outline";
 
 import React, { useEffect } from "react";
 import SearchField from "../components/SearchField";
@@ -9,6 +23,8 @@ import ItemCard from "../components/ItemCard";
 import watch3 from "../assets/watch_3.png";
 import iphone1 from "../assets/iphone_1.png";
 import tablet1 from "../assets/tablet_1.png";
+import FooterIcon from "../components/FooterIcon";
+import SmallText from "../components/SmallText";
 
 export default function HomeScreen({ navigation }) {
   const { accessToken } = useSelector((state) => state.login);
@@ -21,12 +37,14 @@ export default function HomeScreen({ navigation }) {
     <SafeAreaView
       className={
         Platform.OS === "android"
-          ? `pt-12 bg-[#F2F2F2] h-full`
-          : `pt-0 bg-[#F2F2F2] h-full`
+          ? `pt-12 bg-[#F2F2F2] h-full relative`
+          : `pt-0 bg-[#F2F2F2] h-full relative`
       }
     >
       <View className="flex-row p-4 w-full items-center justify-center border-b-[3px] border-[#CFCFCF]">
-        <MenuAlt1Icon size={25} color="black" style={{ marginRight: 20 }} />
+        <TouchableOpacity>
+          <MenuAlt1Icon size={25} color="black" style={{ marginRight: 20 }} />
+        </TouchableOpacity>
         <SearchField />
       </View>
       <View className="pt-10 pl-8">
@@ -70,7 +88,16 @@ export default function HomeScreen({ navigation }) {
               />
             </View>
           </ScrollView>
+          <TouchableOpacity className="items-end mr-4 mt-2">
+            <Text className="text-[#5956E9] font-bold">See more</Text>
+          </TouchableOpacity>
         </View>
+      </View>
+      <View className="flex-row absolute bottom-5 justify-between px-6 w-full">
+        <FooterIcon Icon={HomeIcon} isActive={true} />
+        <FooterIcon Icon={HeartIcon} />
+        <FooterIcon Icon={UserIcon} />
+        <FooterIcon Icon={ShoppingCartIcon} />
       </View>
     </SafeAreaView>
   );

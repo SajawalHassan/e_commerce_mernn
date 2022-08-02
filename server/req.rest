@@ -13,6 +13,22 @@ POST http://localhost:5000/auth/login
 Content-Type: application/json
 
 {
-    "email": "bob@gmail.com",
-    "password": "bob@1234"
+    "email": "sajawal@gmail.com",
+    "password": "123456789"
+}
+
+
+###
+
+POST http://localhost:5000/items/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhamF3YWwiLCJlbWFpbCI6InNhamF3YWxAZ21haWwuY29tIiwiY3JlYXRlZEF0IjoiMjAyMi0wNy0yN1QxNjowNDoxMy4yNzdaIiwiX2lkIjoiNjJlMTY1ODg4ZjNhMWZkMDVkMWE2MmFkIiwiaWF0IjoxNjU5NDIwNDcyfQ.9gT3LS0Snz3q4krXda-bw03b_Qk5tSOOavB7ZY6Crtk
+
+{
+    "name": "item1",
+    "shortDesc": "item1 description",
+    "price": "100",
+    "quantity": "10",
+    "category": "category1",
+    "image": "image1.jpg"
 }
